@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/de04448809.js" crossorigin="anonymous"></script>
+    <style>
+        .filterDiv {
+            float: left;
+            background-color: #2196F3;
+            color: #ffffff;
+            min-width: 32%;
+            line-height: 100px;
+            text-align: center;
+            margin: 2px;
+            display: none;
+        }
+        
+        .show {
+            display: block;
+        }
+        
+        .container {
+            margin-top: 20px;
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        .projects {
+            padding: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-direction: row-reverse;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        /* Style the buttons */
+        
+        #myBtnContainer {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            min-width: 400px;
+        }
+        
+        img {
+            width: 600px;
+        }
+        
+        .btn {
+            border: none;
+            outline: none;
+            padding: 12px 16px;
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #ddd;
+        }
+        
+        .btn.active {
+            background-color: #666;
+            color: white;
+        }
+        
+        @media (max-width:991px) {
+            .filterDiv {
+                align-items: center;
+                min-width: 300px;
+            }
+        }
+    </style>
+    </style>
+</head>
+
+<body>
+
+    <h2>Portfolio</h2>
+
+    <div id="myBtnContainer">
+        <button class="btn active" onclick="filterSelection('all')"> Show all</button>
+        <button class="btn" onclick="filterSelection('modeling')"> 3D Modeling</button>
+        <button class="btn" onclick="filterSelection('UI')"> UI</button>
+        <button class="btn" onclick="filterSelection('game-dev')"> Game Dev</button>
+        <button class="btn" onclick="filterSelection('programming')"> Programming</button>
+    </div>
+
+    <div class="container">
+        <section class="projects">
+            <div class="filterDiv modeling">
+                <time>Sept 17,2022</time>
+
+                <div>
+                    <div>
+
+                        <img src="../img/bg.jpg" width="50%" height="47%">
+                    </div>
+                    <p>Details</p>
+                </div>
+                <span>button</span>
+            </div>
+            <div class="filterDiv programming game-dev"><time>Sept 17,2022</time>
+                <div>
+                    <img src="../img/bg2.jpg" width="50%" height="47%">
+                    <p>Details</p>
+                </div>
+                <span>button</span></div>
+            <div class="filterDiv modeling"><time>Sept 07,2022</time>
+                <div>
+                    <img src="../img/bg3.jpg" width="50%" height="47%">
+                    <p>Details</p>
+                </div>
+                <span>button</span></div>
+            <div class="filterDiv programming"><time>Feb 27,2022</time>
+                <div>
+                    <img src="../img/bg4.jpg" width="50%" height="47%">
+                    <p>Details</p>
+                </div>
+                <span>button</span></div>
+            <div class="filterDiv modeling UI"><time>Aug 11,2022</time>
+                <div>
+                    <img src="../img/menu1.jpg" width="50%" height="47%">
+                    <p>Details</p>
+                </div>
+                <span>button</span></div>
+            <div class="filterDiv programming"><time>March 1,2022</time>
+                <div>
+                    <img src="../img/menu2.jpg" width="50%" height="47%">
+                    <p>Details</p>
+                </div>
+                <span>button</span></div>
+            <div class="filterDiv UI"><time>July 21,2022</time>
+                <div>
+                    <img src="../img/img1.jpg" width="50%" height="47%">
+                    <p>Details</p>
+                </div>
+                <span>button</span></div>
+            <div class="filterDiv UI"><time>April 22,2022</time>
+                <div>
+                    <img src="../img/menu4.jpg" width="50%" height="47%">
+                    <p>Details</p>
+                </div>
+                <span>button</span></div>
+            <div class="filterDiv game-dev"><time>Jan 10,2022</time>
+                <div>
+                    <img src="../img/menu5.jpg" width="50%" height="47%">
+                    <p>Details</p>
+                </div>
+                <span>button</span></div>
+            <div class="filterDiv game-dev UI"><time>June 29,2022</time>
+                <div>
+                    <img src="../img/menu5.jpg" width="50%" height="47%">
+                    <p>Details</p>
+                </div>
+                <span>button</span></div>
+            <div class="filterDiv game-dev"><time>Sept 02,2022</time>
+                <div>
+                    <img src="../img/menu6.jpg" width="50%" height="47%">
+                    <p>Details</p>
+                </div>
+                <span>button</span></div>
+            <div class="filterDiv game-dev"><time>Sept 15,2022</time>
+                <div>
+                    <img src="../img/expert2.jpg" width="50%" height="47%">
+                    <p>Details</p>
+                </div>
+                <span>button</span></div>
+            <div class="filterDiv UI"><time>March 13,2022</time>
+                <div>
+                    <img src="../img/testi3.jpg" width="50%" height="47%">
+                    <p>Details</p>
+                </div>
+                <span>button</span></div>
+        </section>
+
+    </div>
+
+    <script>
+        filterSelection("all")
+
+        function filterSelection(c) {
+            var x, i;
+            x = document.getElementsByClassName("filterDiv");
+            if (c == "all") c = "";
+            for (i = 0; i < x.length; i++) {
+                w3RemoveClass(x[i], "show");
+                if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+            }
+        }
+
+        function w3AddClass(element, name) {
+            var i, arr1, arr2;
+            arr1 = element.className.split(" ");
+            arr2 = name.split(" ");
+            for (i = 0; i < arr2.length; i++) {
+                if (arr1.indexOf(arr2[i]) == -1) {
+                    element.className += " " + arr2[i];
+                }
+            }
+        }
+
+        function w3RemoveClass(element, name) {
+            var i, arr1, arr2;
+            arr1 = element.className.split(" ");
+            arr2 = name.split(" ");
+            for (i = 0; i < arr2.length; i++) {
+                while (arr1.indexOf(arr2[i]) > -1) {
+                    arr1.splice(arr1.indexOf(arr2[i]), 1);
+                }
+            }
+            element.className = arr1.join(" ");
+        }
+
+        // Add active class to the current button (highlight it)
+        var btnContainer = document.getElementById("myBtnContainer");
+        var btns = btnContainer.getElementsByClassName("btn");
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].addEventListener("click", function() {
+                var current = document.getElementsByClassName("active");
+                current[0].className = current[0].className.replace(" active", "");
+                this.className += " active";
+            });
+        }
+    </script>
+
+</body>
+
+</html>

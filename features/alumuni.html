@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/de04448809.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            scroll-behavior: smooth;
+        }
+        
+        html,
+        body {
+            height: 100vh;
+            font-family: 'Poppins';
+            background-size: contain;
+            background-repeat: no-repeat;
+            color: wheat;
+            background-color: #002200;
+        }
+        
+        section {
+            padding: 100px;
+        }
+        
+        .webgl {
+            position: fixed;
+            top: 0;
+            left: 0;
+            outline: none;
+        }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            /* width: 100%; */
+            width: 100%;
+            box-sizing: border-box;
+            padding: 40px 100px;
+            z-index: 10000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.5s;
+            border-bottom: wheat solid;
+        }
+        
+        .sticky {
+            position: fixed;
+            background: wheat;
+            top: 0;
+            width: 100%;
+            padding: 10px 100px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sticky .logo {
+            color: #002200;
+        }
+        
+        .sticky .navigation li a {
+            color: black;
+            opacity: 1;
+            transition: all 0.4s ease;
+        }
+        
+        .sticky .navigation li a:hover {
+            background-color: #002200;
+            color: wheat;
+            margin: -4px;
+            padding: 4px;
+            transition: all 0.4s ease;
+        }
+        
+        header .logo {
+            color: #fff;
+            font-weight: 700;
+            font-size: 2em;
+            text-decoration: double;
+        }
+        
+        header .logo span {
+            color: wheat;
+        }
+        
+        header .navigation {
+            position: relative;
+            display: flex;
+        }
+        
+        header .navigation li {
+            list-style: none;
+            margin-left: 30px;
+        }
+        
+        header .navigation li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 300;
+            opacity: 0.3;
+            transition: all 0.4s ease
+        }
+        
+        header .navigation li a:hover {
+            border-radius: 2px;
+            font-weight: 500;
+            box-shadow: 0px 0px #fff;
+            color: #fff;
+            opacity: 1;
+            transition: all 0.4s ease
+        }
+        
+        .container {
+            position: absolute;
+            z-index: 100;
+            top: 10px;
+            width: 100%;
+            height: 100vh;
+            /* place-content: center; */
+        }
+        
+        .container.bluractive {
+            filter: blur(20px);
+            /* pointer-events: none;
+    user-select: none; */
+        }
+        
+        .banner {
+            margin: auto;
+            margin-top: 2%;
+            position: relative;
+            max-width: 90%;
+            min-height: 10vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .banner .content {
+            max-width: 56rem;
+            text-align: center;
+        }
+        
+        .banner h1 {
+            font-size: 4rem;
+            width: 50vw;
+            line-height: 97%;
+            text-align: center;
+        }
+        
+        .banner h1,
+        .banner p {
+            flex-basis: 0;
+            flex-grow: 1;
+            /* clip-path: polygon(0 0, 100% 0, 100% 0); */
+            animation: titleAnimation;
+            animation-timing-function: ease-in;
+            animation-duration: 10s;
+            padding-bottom: 5px;
+            ;
+        }
+        
+        .banner p {
+            padding-top: 30px;
+            font-size: 1.0rem;
+            width: 50vw;
+            text-align: center;
+        }
+        
+        .box {
+            height: 10vh;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            flex-direction: column;
+            align-content: center;
+        }
+        
+        .search-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .input {
+            padding: 10px;
+            width: 80px;
+            height: 80px;
+            background: none;
+            border: 4px solid wheat;
+            border-radius: 50px;
+            box-sizing: border-box;
+            font-size: 26px;
+            color: wheat;
+            outline: none;
+            transition: .5s;
+        }
+        
+        .search-box:hover input {
+            width: 650px;
+            background: #3b3640;
+            border-radius: 10px;
+        }
+        
+        .search-box i {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translate(-50%, -50%);
+            font-size: 26px;
+            color: wheat;
+            transition: .2s;
+        }
+        
+        .search-box:hover i {
+            opacity: 0;
+            z-index: -1;
+        }
+        
+        .alumni {
+            background-color: rgba(10, 10, 10, 0.6);
+            border-top: 1px solid wheat;
+        }
+        
+        .row {
+            position: relative;
+            width: 100%;
+            display: flex;
+            min-height: 30%;
+            justify-content: space-between;
+            text-align: left;
+        }
+        
+        .row .col50 {
+            position: relative;
+            width: 32%;
+        }
+        
+        .titleText {
+            color: wheat;
+            font-size: 2em;
+            font-weight: 300;
+            transition: 0.2s ease-in-out;
+        }
+        
+        .titleText:hover {
+            text-decoration: underline;
+            transition: 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        
+        .titleText span {
+            color: wheat;
+            font-weight: 800;
+            font-size: 2.5em;
+        }
+        
+        .row .col50 .imgBx {
+            position: relative;
+            cursor: pointer;
+            width: 100%;
+            /* min-height: 300px; */
+            height: 100%;
+        }
+        
+        .row .col50 .imgBx img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 3px solid wheat;
+            padding: 10px;
+            background-color: rgba(100, 100, 100, 0.3);
+        }
+        
+        .title {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="#" class="logo">UPES<span>.</span></a>
+        <div class="menuToggle" onclick="toggleMenu();"></div>
+        <ul class="navigation">
+            <li><a href="#banner">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#alumni">Alumni</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+        </ul>
+    </header>
+    <div class="container" id="container">
+        <section class="banner" id="banner">
+
+
+            <div class="content">
+                <div class="linecontent">
+                    <h1>Our Alumni</h1>
+                </div>
+            </div>
+
+
+        </section>
+        <div class="box">
+
+            <div class="search-box">
+                <form name="search">
+                    <input type="text" class="input" id="myInput" onkeyup="myFunction()" title="Type in a name" onmouseout="this.value = ''; this.blur();">
+                </form>
+                <i class="fas fa-search"></i>
+
+            </div>
+        </div>
+        <div id="alumni-list">
+            <section class="alumni" id="alumni">
+                <div class="row">
+                    <div class="col50">
+                        <h2 class="titleText">Akash</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga quasi reiciendis nulla. Ab, repudiandae nostrum! Illo provident, aliquid, saepe obcaecati molestiae enim quod modi odio rem nostrum hic dolor consectetur.<br><br>Lorem
+                            ipsum dolor sit amet consectetur adipisicing elit. Delectus reiciendis voluptatum, odio amet recusandae nisi quasi! Rem dolorem voluptas sed, consequuntur adipisci repellendus facere vel sunt delectus! Quas aliquam officiis
+                            maiores ex quisquam sit exercitationem nihil ducimus minus ea dolor odio, deserunt neque magni provident molestiae velit nesciunt numquam. Quia ea velit nemo quod inventore a porro consequatur ut nam, nesciunt qui quisquam
+                            id ipsam voluptas minus eligendi unde iure! Quis cupiditate error facere sint. Mollitia tenetur eaque quos quam!
+                        </p>
+                    </div>
+                    <div class="col50">
+                        <div class="imgBx">
+                            <img src="../img/bg.jpg">
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <section class="alumni" id="alumni">
+                <div class="row">
+                    <div class="col50">
+                        <h2 class="titleText">Emily</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga quasi reiciendis nulla. Ab, repudiandae nostrum! Illo provident, aliquid, saepe obcaecati molestiae enim quod modi odio rem nostrum hic dolor consectetur.<br><br>Lorem
+                            ipsum dolor sit amet consectetur adipisicing elit. Delectus reiciendis voluptatum, odio amet eaque quos quam!<br><br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi repellendus eaque omnis debitis quasi quo,
+                            magni qui unde adipisci blanditiis. Repellat non, omnis at illo officia incidunt recusandae vero, dolorem rerum voluptatibus cum nostrum veritatis! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum quis,
+                            iure saepe, sapiente rem est fuga accusamus libero cumque pariatur quaerat voluptatibus itaque debitis possimus sint quibusdam, natus dolor molestias.
+                        </p>
+                    </div>
+                    <div class="col50">
+                        <div class="imgBx">
+                            <img src="../img/testi3.jpg">
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <section class="alumni" id="alumni">
+                <div class="row">
+                    <div class="col50">
+                        <h2 class="titleText">Chandler</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga quasi reiciendis nulla. Ab, repudiandae nostrum! Illo provident, aliquid, saepe obcaecati molestiae enim quod modi odio rem nostrum hic dolor consectetur.<br><br>Lorem
+                            ipsum dolor sit amet consectetur adipisicing elit. Delectus r Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque dicta maiores mollitia culpa. Sit ad voluptatibus totam excepturi autem soluta libero facilis voluptatum
+                            sequi nisi atque pariatur earum qui, sed in exercitationem hic ab quod obcaecati, unde similique?eiciendis voluptatum, odio amet recusandae nisi quasi! Rem dolorem voluptas sed, consequuntur adipisci repellendus facere vel
+                            sunt delectus! Quas aliquam officiis maiores ex quisquam sit exercitationem nihil ducimus minus ea dolor odio, deserunt neque magni provident molestiae velit nesciunt numquam. Quia ea velit nemo quod inventore a porro consequatur
+                            ut nam, nesciunt qui quisquam id ipsam voluptas minus eligendi unde iure! Quis cupiditate error facere sint. Mollitia tenetur eaque quos qua m!
+                            <br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe alias, fuga impedit fugit consequuntur sint id tempora facilis possimus, architecto quos, ex rem. Ullam dolor animi qui optio accusantium illo nobis, a ex laboriosam
+                            soluta quas aut assumenda beatae dignissimos omnis sapiente ut iure repellendus voluptas hic dicta. Itaque, commodi!
+                        </p>
+                    </div>
+                    <div class="col50">
+                        <div class="imgBx">
+                            <img src="../img/testi2.jpg">
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <section class="alumni" id="alumni">
+                <div class="row">
+                    <div class="col50">
+                        <h2 class="titleText">Lilly</h2>
+                        <p>
+                            ipsum dolor sit amet consectetur adipisicing elit. Delectus reiciendis voluptatum, odio amet recusandae nisi quasi! Rem dolorem voluptas sed, consequuntur adipisci consequatur ut nam, nesciunt qui quisquam id ipsam voluptas minus eligendi unde iure! Quis
+                            cupiditate error facere sint. Mollitia tenetur eaque quos quam!<br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem tempore eum ea. Sed aspernatur voluptatibus cumque fuga nemo
+                            omnis tenetur voluptates qui velit exercitationem, et pariatur molestias aliquam enim labore placeat maxime autem cum unde quisquam obcaecati consequatur modi. Itaque ea quo ipsum sequi vitae obcaecati nobis exercitationem
+                            ratione. Dignissimos id voluptas doloribus consequatur obcaecati sapiente asperiores, enim odit rerum!
+                        </p>
+                    </div>
+                    <div class="col50">
+                        <div class="imgBx">
+                            <img src="../img/testi3.jpg">
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <section class="alumni" id="alumni">
+                <div class="row">
+                    <div class="col50">
+                        <h2 class="titleText">Peter</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga quasi reiciendis nulla. Ab, repudiandae nostrum! Illo provident, aliquid, saepe obcaecati molestiae enim quod modi odio rem nostrum hic dolor consectetur.<br><br>Lorem
+                            ipsum dolor sit amet consectetur adipisicing elit. Delectus reiciendis eaque quos quam!
+                            <br><br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis sit odio quaerat est modi eligendi eos dolore iusto cupiditate velit culpa, praesentium repudiandae numquam commodi sequi veritatis, quos quibusdam. Nobis
+                            expedita incidunt dignissimos, saepe pariatur soluta dolorem animi error harum repellat! Totam tempore minima rerum, ullam perspiciatis ut, eveniet laudantium ex impedit eligendi, itaque tempora!
+                        </p>
+                    </div>
+                    <div class="col50">
+                        <div class="imgBx">
+                            <img src="../img/expert2.jpg">
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <section class="alumni" id="alumni">
+                <div class="row">
+                    <div class="col50">
+                        <h2 class="titleText">David</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga quasi reiciendis nulla. Ab, repud provident, aliquid, saepe obcaecati molestiae enim quod modi odio rem nostrum hic dolor consectetur.<br><br>Lorem ipsum dolor sit
+                            amet consectetur adipisicing nesciunt numquam. Quia ea velit nemo quod inventore a porro consequatur ut nam, nesciunt qui quisquam id ipsam voluptas minus eligendi unde iure! Quis cupiditate error facere sint. Mollitia tenetur
+                            eaque quos quam!
+                        </p>
+                    </div>
+                    <div class="col50">
+                        <div class="imgBx">
+                            <img src="../img/img1.jpg">
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <section class="alumni" id="alumni">
+                <div class="row">
+                    <div class="col50">
+                        <h2 class="titleText">Rajeev</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga quasi reiciendis nulla. Ab, repudiandae nostrum! Illo provident, aliquid, saepe ur eaque quos quam! Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum facere
+                            architecto enim quibusdam mollitia voluptate explicabo. Sed esse, autem ratione a id enim corrupti amet quaerat natus nisi porro laborum blanditiis provident iste, maiores reprehenderit. Fugit quae optio reprehenderit officia.
+                            <br><br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque molestias earum, harum magnam perspiciatis expedita aut voluptatem, commodi accusantium ipsum enim. Assumenda hic sed aperiam consequuntur praesentium
+                            blanditiis illo ipsa, pariatur delectus quo perferendis, obcaecati iste iure vero quos. Esse ea sunt, totam sit iure, asperiores a exercitationem laborum facere perspiciatis impedit maiores unde iste.optio reprehenderit officia.
+                            <br><br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque molestias earum, harum magnam perspiciatis expedita aut voluptatem, commodi accusantium ipsum enim. Assumenda hic sed aperiam consequuntur praesentium
+                            blanditiis illo ipsa, pariatur delectus quo perferendis, obcaecati iste iure vero quos. Esse ea sunt, totam sit iure, asperiores a exercitationem laborum facere perspiciatis impedit maiores unde iste.
+                        </p>
+                    </div>
+                    <div class="col50">
+                        <div class="imgBx">
+                            <img src="../img/expert1.jpg">
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <section class="alumni" id="alumni">
+                <div class="row">
+                    <div class="col50">
+                        <h2 class="titleText">Clark</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga quasi reiciendis nulla. Ab, repudiandae nostrum! Illo provident, aliquid, saepe obcaecati molestiae enim quod modi odio rem nostrum hic dolor consectetur.<br><br>Lorem
+                            ipsum dolor sit amet
+                        </p>
+                    </div>
+                    <div class="col50">
+                        <div class="imgBx">
+                            <img src="../img/bg2.jpg">
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <section class="alumni" id="alumni">
+                <div class="row">
+                    <div class="col50">
+                        <h2 class="titleText">Sofie</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga quasi reiciendis nulla. Ab, repudiandae nostrum! Illo provident, aliquid, saepe obcaecati molestiae enim quod modi odio rem nostrum hic dolor consectetur.<br><br>Lorem
+                            ipsum dolor sit amet consectetur adipisicing elit. Delectus reiciendis voluptatum, odio amet sint. Mollitia tenetur eaque quos quam!<br><br> or sit amet consectetur, adipisicing elit. Fuga quasi reiciendis nulla. Ab, repudiandae
+                            nostrum! Illo provident, aliquid, saepe obcaecati molestiae enim quod modi odio rem nostrum hic dolor consectetur.<br><br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus reiciendis voluptatum, odio amet sint.
+                            Mollitia tenetur eaque quos quam!
+                        </p>
+                    </div>
+                    <div class="col50">
+                        <div class="imgBx">
+                            <img src="../img/menu6.jpg">
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const header = this.document.querySelector('header');
+            header.classList.toggle("sticky", this.window.scrollY > 0)
+        })
+
+        function toggleMenu() {
+            const menuToggle = document.querySelector('.menuToggle');
+            const navigation = document.querySelector('.navigation');
+            menuToggle.classList.toggle('active');
+            navigation.classList.toggle('active');
+        }
+
+        function myFunction() {
+            var input, filter, pl, li, a, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            pl = document.getElementById("alumni-list");
+            li = pl.getElementsByClassName("alumni");
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByClassName("titleText")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>
